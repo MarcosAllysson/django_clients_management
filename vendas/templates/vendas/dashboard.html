@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1> Dashboard </h1>
+
+    <ul>
+        <li> Ticket médio (média dos valores): R$ {{ media }} </li>
+        <li> Média de desconto: R$ {{ media_desconto }} </li>
+        <li> Maior pedido: R$ {{ maior_pedido }} </li>
+        <li> Menor pedido: R$ {{ menor_pedido }} </li>
+        <li> Número de pedidos: {{ numero_pedidos }} </li>
+        <li> Número de pedidos com nfe emitida: {{ numero_pedidos_nfe }} </li>
+        <li> Soma dos valores dos pedidos: R$ {{ soma_valores_pedidos }} </li>
+    </ul>
+{% endblock %}

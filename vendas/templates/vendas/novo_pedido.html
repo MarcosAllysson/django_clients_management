@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block main %}
+
+    {% if mensagem %}
+        {{mensagem}}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12">
+            <h1> Novo pedido </h1>
+
+            <form method="POST" action="{% url 'novo_pedido' %}">
+
+                {% csrf_token %}
+                <h4> Cabeçalho número: {{venda.numero}} </h4>
+                <input type="text" name="numero" class="form-control" value="{{numero}}"> <br>
+
+                <label for="desconto">Desconto</label>
+                <input type="text" name="desconto" id="desconto" value="{{desconto}}"
+                    placeholder="Desconto" class="form-control"> <br>
+
+                <input type="hidden" value="{{venda.id}}" name="venda_id"> <br>
+
+                <button type="submit" class="btn btn-success"> Enviar </button>
+
+            </form>
+
+            <!-- Soma total -->
+            <b> Total: {{venda.valor}} </b> <br>
+            <b> Desconto: {{venda.desconto}} </b>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra %}
+    {% if venda %}
+    <div class="row">
+        <div class="col-12">
+            <h2> Novo pedido: </h2>
+            <br>
+            <form method="POST" action="{% url 'novo_item_pedido' venda.id %}">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button class="btn btn-primary">Incluir</button>
+            </form>
+
+            <br>
+            <h2> Listagem de items </h2>
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col"> ID </th>
+                        <th scope="col"> Descrição </th>
+                        <th scope="col"> Quantidade </th>
+                        <th scope="col"> Desconto </th>
+                        <th scope="col"> Ação </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td> {{item}} </td>
+                            <td> {{item.produto.descricao}} </td>
+                            <td> {{item.quantidade}} </td>
+                            <td> {{item.desconto}} </td>
+                            <td>
+                                <a href="#" class="btn btn-danger"> Excluir </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

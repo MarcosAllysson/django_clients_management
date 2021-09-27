@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h2> Quer mesmo excluir: <b> {{venda}} </b>? </h2>
+
+    <form method="POST" action="{% url 'delete_item_pedido' venda.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger"> Confirmar </button>
+        <a href="{% url 'lista-vendas' %}" class="btn btn-warning"> Cancelar </a>
+    </form>
+{% endblock %}
